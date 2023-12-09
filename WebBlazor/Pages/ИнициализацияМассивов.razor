@@ -1,0 +1,113 @@
+﻿@page "/ИнициализацияМассивов"
+
+<PageTitle>Инициализация массивов</PageTitle>
+
+<h3>Массив, содержащий N первых простых чисел</h3>
+
+<br />
+
+<style> .container { margin: 20px; width: 650px; }
+		.grid {
+			display: grid;
+			grid-template-columns: 200px 60px 280px 60px;
+			grid-template-rows: 30px 50px 45px 45px 30px;
+			grid-gap: 10px;
+		}
+</style>
+
+<div class="grid" style="text-align:right">
+	Размер массива:
+	<input id="Text1" type="text" @bind-value="@cin" />
+	Элементы массива:
+	<textarea id="TextArea1" readonly="readonly" style="grid-row:span 5" @bind="@cout"></textarea>
+	<button type="button" class="btn btn-primary" style="grid-column:span 2" @onclick="button1_Click">
+		Сформировать массив
+	</button>
+</div>
+
+
+@code {
+	private string cin = "", cout = "";
+	bool show_modal1 = false;
+	bool show_modal2 = false;
+
+	private void button1_Click() {
+		cout = "";
+            try
+            {
+                uint N = Convert.ToUInt32(cin);
+
+                int[] mas = new int[N];
+                int i, j;
+
+                for (i = 2; i <= N; i++)
+                {
+                    for (j = 2; j <= i; j++)
+                        if (i % j == 0)
+                            break;
+                    if (j > (i / j))
+                        cout += (i.ToString() + "\n");
+                }
+            }
+            catch (FormatException)
+            {
+				cout = "";
+				show_modal1 = true;
+				return;
+            }
+            catch (OverflowException)
+            {
+				cout = "";
+				show_modal2 = true;
+				return;
+            }
+	}
+	private void cancel_submit1()
+	{
+		show_modal1 = false;
+	}
+
+	private void cancel_submit2()
+	{
+		show_modal2 = false;
+	}
+}
+
+
+@if (show_modal1)
+{
+	<div class="modal" tabindex="-1" role="dialog" style="display:block">
+		<div class="modal-dialog shadow-lg bg-white rounded">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Ошибка</h5>
+				</div>
+				<div class="modal-body">
+					<p>Значение в ячейке отсутствует, либо введено не натуральное число</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" @onclick="cancel_submit1">прекрасно</button>
+				</div>
+			</div>
+		</div>
+	</div>
+}
+
+@if (show_modal2)
+{
+		<div class="modal" tabindex="-1" role="dialog" style="display:block">
+			<div class="modal-dialog shadow-lg bg-white rounded">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Ошибка</h5>
+					</div>
+					<div class="modal-body">
+						<p>Недопустимо значение размера массива</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" @onclick="cancel_submit2">прекрасно</button>
+					</div>
+				</div>
+			</div>
+		</div>
+}

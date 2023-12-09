@@ -1,0 +1,10 @@
+D:\CODE\acode_rksi\petrova\RPM_12\bin\Debug\RPM_12.exe.config
+D:\CODE\acode_rksi\petrova\RPM_12\bin\Debug\RPM_12.exe
+D:\CODE\acode_rksi\petrova\RPM_12\bin\Debug\RPM_12.pdb
+D:\CODE\acode_rksi\petrova\RPM_12\obj\Debug\RPM_12.csproj.AssemblyReference.cache
+D:\CODE\acode_rksi\petrova\RPM_12\obj\Debug\RPM_12.Form1.resources
+D:\CODE\acode_rksi\petrova\RPM_12\obj\Debug\RPM_12.Properties.Resources.resources
+D:\CODE\acode_rksi\petrova\RPM_12\obj\Debug\RPM_12.csproj.GenerateResource.cache
+D:\CODE\acode_rksi\petrova\RPM_12\obj\Debug\RPM_12.csproj.CoreCompileInputs.cache
+D:\CODE\acode_rksi\petrova\RPM_12\obj\Debug\RPM_12.exe
+D:\CODE\acode_rksi\petrova\RPM_12\obj\Debug\RPM_12.pdb

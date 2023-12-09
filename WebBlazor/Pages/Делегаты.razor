@@ -1,0 +1,199 @@
+﻿@page "/Делегаты"
+<h2>Результаты двух заданных сумм чисел – суммы S=sin x+sin2x+…+sinnx и суммы S=cosx+cos2x+…+cosnx</h2>
+<br />
+<style>
+    .grid { /* Сетка */
+        display: grid;
+        gap: 40px;
+        grid-template-columns: 600px 600px;
+        grid-template-rows: 300px;
+    }
+
+    .grid2 { /* Сетка */
+        display: grid;
+        gap: 10px;
+        grid-template-columns: 280px 280px;
+        grid-template-rows: 20px 30px 50px 40px;
+    }
+
+    body {
+        background: white;
+    }
+</style>
+
+<div class="grid">
+    <fieldset class="grid2" style="background: LavenderBlush; border: 3px solid violet; padding: 12px; border-radius: 8px; grid-row: span 2">
+        <legend style="font-size: 1.1rem; color: black">Целые числа</legend>
+        <p></p>
+        <p>Количество слагаемых:</p>
+        <p>Значение числа:</p>
+        <input id="Text1" type="text" @bind-value="@cin1" />
+        <input id="Text2" type="text" @bind-value="@cin2" />
+        <button type="button" class="btn btn-primary" style="background: violet; border: none; grid-column: span 2" @onclick="button1_Click">
+            Вычислить
+        </button>
+        <input id="Text3" type="text" readonly="readonly" style="grid-column: span 2" @bind-value="@cout1" />
+    </fieldset>
+
+    <fieldset class="grid2" style="background: LavenderBlush; border: 3px solid violet; padding: 12px; border-radius: 8px; grid-row: span 2">
+        <legend style="font-size: 1.1rem; color: black">Вещественные числа</legend>
+        <p></p>
+        <p>Количество слагаемых:</p>
+        <p>Значение числа:</p>
+        <input id="Text4" type="text" @bind-value="@cin3" />
+        <input id="Text5" type="text" @bind-value="@cin4" />
+        <button type="button" class="btn btn-primary" style="background: violet; border: none; grid-column: span 2" @onclick="button2_Click">
+            Вычислить
+        </button>
+        <input id="Text6" type="text" readonly="readonly" style="grid-column: span 2" @bind-value="@cout2" />
+    </fieldset>
+</div>
+
+@code {
+    private string cin1 = "", cin2 = "", cin3 = "", cin4 = "";
+    private string cout1 = "", cout2 = "";
+    bool ShowModal1 = false;
+    bool ShowModal2 = false;
+
+
+    delegate void IntDelegate(int x1, uint x2);
+    delegate void DoubleDelegate(double x1, uint x2);
+
+    private void button1_Click()
+    {
+        uint value_n;
+        int value_x;
+        try
+        {
+            value_n = Convert.ToUInt32(cin1);
+            value_x = Convert.ToInt32(cin2);
+        }
+        catch (FormatException)
+        {
+            cout1 = "";
+            ShowModal1 = true;
+            return;
+        }
+        catch (OverflowException)
+        {
+            cout1 = "";
+            ShowModal2 = true;
+            return;
+        }
+
+        cout1 = "";
+        IntDelegate int_delegate = new IntDelegate(sin_summa);
+        int_delegate += cos_summa;
+        int_delegate(value_x, value_n);
+    }
+
+    private void button2_Click()
+    {
+        uint value_n;
+        double value_x;
+        try
+        {
+            value_n = Convert.ToUInt32(cin3);
+            value_x = Convert.ToDouble(cin4);
+        }
+        catch (FormatException)
+        {
+            cout2 = "";
+            ShowModal1 = true;
+            return;
+        }
+        catch (OverflowException)
+        {
+            cout2 = "";
+            ShowModal2 = true;
+            return;
+        }
+
+        cout2 = "";
+        DoubleDelegate double_delegate = new DoubleDelegate(sin_summa);
+        double_delegate += cos_summa;
+        double_delegate(value_x, value_n);
+    }
+
+
+    void sin_summa(int x1, uint x2)
+    {
+        double summa = 0; int i = 0;
+        for (i = 0; i <= x2; i++)
+            summa += Math.Sin(i * x1);
+        cout1 += $"Cумма sin = {Convert.ToInt32(summa)}.";
+    }
+
+    void sin_summa(double x1, uint x2)
+    {
+        double summa = 0; int i = 0;
+        for (i = 0; i <= x2; i++)
+            summa += Math.Sin(i * x1);
+        cout2 += $"Сумма sin = {summa}. ";
+    }
+    void cos_summa(int x1, uint x2)
+    {
+        double summa = 0; int i = 0;
+        for (i = 0; i <= x2; i++)
+            summa += Math.Cos(i * x1);
+        cout1 += $"Сумма cos = {Convert.ToInt32(summa)}.";
+    }
+
+    void cos_summa(double x1, uint x2)
+    {
+        double summa = 0; int i = 0;
+        for (i = 0; i <= x2; i++)
+            summa += Math.Cos(i * x1);
+        cout2 += $"Сумма cos = {summa}.";
+    }
+
+
+    private void CancelSubmit1()
+    {
+        ShowModal1 = false;
+    }
+
+    private void CancelSubmit2()
+    {
+        ShowModal2 = false;
+    }
+}
+
+
+@if (ShowModal1)
+{
+    <div class="modal" tabindex="-1" role="dialog" style="display:block">
+        <div class="modal-dialog shadow-lg bg-white rounded">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Ошибка</h5>
+                </div>
+                <div class="modal-body">
+                    <p>Отсутствует или ошибочные значения чисел!!!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="CancelSubmit1">ок</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (ShowModal2)
+{
+    <div class="modal" tabindex="-1" role="dialog" style="display:block">
+        <div class="modal-dialog shadow-lg bg-white rounded">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Ошибка</h5>
+                </div>
+                <div class="modal-body">
+                    <p>Количество слагаемых должно быть положительным!!!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="CancelSubmit2">ок</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}

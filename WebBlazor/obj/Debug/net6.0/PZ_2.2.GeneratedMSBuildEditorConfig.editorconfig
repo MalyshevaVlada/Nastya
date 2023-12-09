@@ -1,0 +1,93 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = false
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = browser
+build_property.RootNamespace = PZ_2.2
+build_property.RootNamespace = PZ_2.2
+build_property.ProjectDir = D:\CODE\acode_rksi\petrova\WebBlazor\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = D:\CODE\acode_rksi\petrova\WebBlazor
+build_property._RazorSourceGeneratorDebug = 
+
+[D:/CODE/acode_rksi/petrova/WebBlazor/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/CODE/acode_rksi/petrova/WebBlazor/Pages/ДвумерныеМассивы.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNc0JTQstGD0LzQtdGA0L3Ri9C10JzQsNGB0YHQuNCy0YsucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/CODE/acode_rksi/petrova/WebBlazor/Pages/Делегаты.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNc0JTQtdC70LXQs9Cw0YLRiy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/CODE/acode_rksi/petrova/WebBlazor/Pages/ИнициализацияМассивов.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNc0JjQvdC40YbQuNCw0LvQuNC30LDRhtC40Y/QnNCw0YHRgdC40LLQvtCyLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/CODE/acode_rksi/petrova/WebBlazor/Pages/ЛинейныйАлгоритм.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNc0JvQuNC90LXQudC90YvQudCQ0LvQs9C+0YDQuNGC0LwucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/CODE/acode_rksi/petrova/WebBlazor/Pages/Методы.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNc0JzQtdGC0L7QtNGLLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/CODE/acode_rksi/petrova/WebBlazor/Pages/МетодыСтрок.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNc0JzQtdGC0L7QtNGL0KHRgtGA0L7Qui5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/CODE/acode_rksi/petrova/WebBlazor/Pages/ОбработкаМассивов.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNc0J7QsdGA0LDQsdC+0YLQutCw0JzQsNGB0YHQuNCy0L7Qsi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/CODE/acode_rksi/petrova/WebBlazor/Pages/ОброботкаСимволов.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNc0J7QsdGA0L7QsdC+0YLQutCw0KHQuNC80LLQvtC70L7Qsi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/CODE/acode_rksi/petrova/WebBlazor/Pages/ОператорВарианта.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNc0J7Qv9C10YDQsNGC0L7RgNCS0LDRgNC40LDQvdGC0LAucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/CODE/acode_rksi/petrova/WebBlazor/Pages/ПерегрузкаМетодов.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNc0J/QtdGA0LXQs9GA0YPQt9C60LDQnNC10YLQvtC00L7Qsi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/CODE/acode_rksi/petrova/WebBlazor/Pages/РегулярныеВыражения.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNc0KDQtdCz0YPQu9GP0YDQvdGL0LXQktGL0YDQsNC20LXQvdC40Y8ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/CODE/acode_rksi/petrova/WebBlazor/Pages/УсловныйОператор.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNc0KPRgdC70L7QstC90YvQudCe0L/QtdGA0LDRgtC+0YAucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/CODE/acode_rksi/petrova/WebBlazor/Pages/Файлы.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNc0KTQsNC50LvRiy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/CODE/acode_rksi/petrova/WebBlazor/Pages/ЦиклическиеОператоры.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNc0KbQuNC60LvQuNGH0LXRgdC60LjQtdCe0L/QtdGA0LDRgtC+0YDRiy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/CODE/acode_rksi/petrova/WebBlazor/Shared/SurveyPrompt.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFN1cnZleVByb21wdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/CODE/acode_rksi/petrova/WebBlazor/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/CODE/acode_rksi/petrova/WebBlazor/Shared/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-u2sahmnj4f
+
+[D:/CODE/acode_rksi/petrova/WebBlazor/Shared/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-hmpx47r81w

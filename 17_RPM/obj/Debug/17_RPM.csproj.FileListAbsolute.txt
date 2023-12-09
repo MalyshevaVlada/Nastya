@@ -1,0 +1,10 @@
+D:\CODE\acode_rksi\petrova\17_RPM\bin\Debug\17_RPM.exe.config
+D:\CODE\acode_rksi\petrova\17_RPM\bin\Debug\17_RPM.exe
+D:\CODE\acode_rksi\petrova\17_RPM\bin\Debug\17_RPM.pdb
+D:\CODE\acode_rksi\petrova\17_RPM\obj\Debug\17_RPM.csproj.AssemblyReference.cache
+D:\CODE\acode_rksi\petrova\17_RPM\obj\Debug\_17_RPM.Form1.resources
+D:\CODE\acode_rksi\petrova\17_RPM\obj\Debug\_17_RPM.Properties.Resources.resources
+D:\CODE\acode_rksi\petrova\17_RPM\obj\Debug\17_RPM.csproj.GenerateResource.cache
+D:\CODE\acode_rksi\petrova\17_RPM\obj\Debug\17_RPM.csproj.CoreCompileInputs.cache
+D:\CODE\acode_rksi\petrova\17_RPM\obj\Debug\17_RPM.exe
+D:\CODE\acode_rksi\petrova\17_RPM\obj\Debug\17_RPM.pdb

@@ -1,0 +1,100 @@
+﻿@page "/ОператорВарианта"
+
+<PageTitle>Оператор Варианта</PageTitle>
+
+<h4>Определение названия дня недели по его номеру</h4>
+
+<div class="container text-right">Какой день недели вы выбираете?</div>
+
+<div class="calculate text-right"> Номер дня недели:
+    <select id="Select1" @bind="@cin">
+        <option disabled></option>
+        <option value="1">1: понедельник</option>
+        <option value="2">2: вторник</option>
+        <option value="3">3: среда</option>
+        <option value="4">4: четрвег</option>
+        <option value="5">5: пятница</option>
+        <option value="6">6: суббота</option>
+        <option value="7">7: воскресенье</option>
+  </select>
+</div>
+
+<div class="container text-right">
+  <button type="button" class="btn btn-primary" style="width: 600px" @onclick="button_click">Определить</button>
+</div>
+
+<div class="container text-right">
+  <input id="Text" type="text" readonly="readonly" style="width: 600px" @bind-value="@cout"/>
+</div>
+
+
+@code {
+    private string cin = "";
+    private string cout = "";
+    bool show_modal = false;
+
+    private void button_click()
+    {
+        try
+        {
+            int day = Convert.ToInt32(Convert.ToString(@cin[0]));
+            switch (day)
+            {
+                case 1:
+                    cout = String.Format("День недели, соответствующий числу {0}: Понедельник", day);
+                    break;
+                case 2:
+                    cout = String.Format("День недели, соответствующий числу {0}: Вторник", day);
+                    break;
+                case 3:
+                    cout = String.Format("День недели, соответствующий числу {0}: Среда", day);
+                    break;
+                case 4:
+                    cout = String.Format("День недели, соответствующий числу {0}: Четверг", day);
+                    break;
+                case 5:
+                    cout = String.Format("День недели, соответствующий числу {0}: Пятница", day);
+                    break;
+                case 6:
+                    cout = String.Format("День недели, соответствующий числу {0}: Суббота", day);
+                    break;
+                case 7:
+                    cout = String.Format("День недели, соответствующий числу {0}: Воскресенье", day);
+                    break;
+                default:
+                    cout = "Такого дня недели нет";
+                    break;
+            }
+        }
+        catch (FormatException)
+        {
+            cout = "";
+            show_modal = true;
+            return;
+        }
+    }
+
+    private void cancel_submit()
+    {
+        show_modal = false;
+    }
+}
+
+@if (show_modal)
+{
+            <div class="modal" tabindex="-1" role="dialog" style="display:block">
+                <div class="modal-dialog shadow-lg bg-white rounded">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Ошибка</h5>
+                        </div>
+                        <div class="modal-body">
+                            <p>Введено некорректное значение</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" @onclick="cancel_submit">прекрасно</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+}

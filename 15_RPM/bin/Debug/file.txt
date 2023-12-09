@@ -1,0 +1,4 @@
+РЕГУЛЯРНЫЕ ВЫРАЖЕНИЯ (regular expression, regexp) - это не новый язык, a
+стандарт для поиска и замены текста в строках. Существует два стандарта:
+основные регулярные выражения (BRE - basic regular expressions) и расширенные
+регулярные выражения (ERE - extended regular expressions).

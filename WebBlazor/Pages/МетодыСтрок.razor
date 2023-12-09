@@ -1,0 +1,114 @@
+﻿@page "/МетодыСтрок"
+
+<PageTitle>Методы строк</PageTitle>
+
+<h3>Поиск К-тых вхождений двух строк в двух заданных строках</h3>
+
+<style> .container { margin: 20px; width: 800px; } </style>
+
+<div class="container text-right">
+	Исходная строка:<br />
+	<input type="text" style="width:350px" @bind-value="@cin1[0]" />
+	<input type="text" style="width:350px" @bind-value="@cin1[1]" />
+</div>
+
+<div class="container text-right">
+	Строка поиска:<br />
+	<input type="text" style="width:350px" @bind-value="@cin2[0]" />
+	<input type="text" style="width:350px" @bind-value="@cin2[1]" />
+</div>
+
+<div class="container text-right">
+	Номер вхождения:<br />
+	<input type="text" style="width:350px" @bind-value="@cin3[0]" />
+	<input type="text" style="width:350px" @bind-value="@cin3[1]" />
+</div>
+
+<div class="container text-right">
+	<button type="button" class="btn btn-primary" style="width:700px" @onclick="button_сlick">
+		Найти
+	</button>
+</div>
+
+<div class="container text-right">
+	Позиция вхождения:<br />
+	<input type="text" style="width:350px" readonly="readonly" @bind-value="@cout[0]" />
+	<input type="text" style="width:350px" readonly="readonly" @bind-value="@cout[1]" />
+</div>
+
+@code {
+	string[] cin1 = new string[2] { "", "" };
+	string[] cin2 = new string[2] { "", "" };
+	string[] cin3 = new string[2] { "", "" };
+	string[] cout = new string[2] { "", "" };
+	bool show_modal = false;
+
+	private int PosK(string S0, string S, int K)
+	{
+		int count = 0;
+		int position = 0;
+		int find = 0;
+
+		while (count < K)
+		{
+			find = S.IndexOf(S0, position);
+			if (find == -1)
+				return -1;
+			count++;
+			position = find + 1;
+		}
+
+		return find + 1;
+	}
+
+	private void button_сlick()
+	{
+		string source_str;
+		string search_str;
+		int number;
+		int position;
+
+		for (int i = 0; i < 2; i++)
+		{
+			try
+			{
+				source_str = cin1[i];
+				search_str = cin2[i];
+				number = Convert.ToInt32(cin3[i]);
+				position = PosK(search_str, source_str, number);
+
+				if (position == -1)
+					cout[i] = "Не найдено \"" + search_str + "\"";
+				else
+					cout[i] = position.ToString();
+			}
+			catch (FormatException) {
+				show_modal = true;
+			}
+		}
+	}
+
+	private void cancel_submit()
+	{
+		show_modal = false;
+	}
+}
+
+@if (show_modal)
+{
+	<div class="modal" tabindex="-1" role="dialog" style="display:block">
+		<div class="modal-dialog shadow-lg bg-white rounded">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Ошибка</h5>
+				</div>
+				<div class="modal-body">
+					<p>Введено некорректное значение номера вхождения</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" @onclick="cancel_submit">прекрасно</button>
+				</div>
+			</div>
+		</div>
+	</div>
+}

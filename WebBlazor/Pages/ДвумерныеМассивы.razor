@@ -1,0 +1,156 @@
+﻿@page "/ДвумерныеМассивы"
+
+
+<PageTitle>Двумерные массивы</PageTitle>
+<h3>Столбец с наибольшей суммой элементов матрицы</h3>
+
+<style>
+	.container { margin: 20px; width: 650px; }
+	.grid {
+		display: grid;
+		grid-template-columns: 170px 60px 180px 30px;
+		grid-template-rows: 30px 30px 70px 60px 80px 30px;
+		grid-gap: 10px;
+	}
+
+	td { padding-left: 3px; padding-right: 3px; }
+</style>
+
+<div class="grid" style="text-align:right">
+	Количество строк:
+	<input id="Text1" type="text" @bind-value="@cin1" />
+	Матрица:
+	<table border="1">
+		<tbody>
+			@for (int r = 0; r < rows; r++) {
+				<tr>
+					@for(int c = 0; c < columns; c++)
+				   {
+					   <td>@mas[r, c]</td>
+				   }
+				</tr>
+			}
+		</tbody>
+	</table>
+	Количество столбцов:
+	<input id="Text2" type="text" @bind-value="@cin2" /><p></p><p></p><p></p><p></p><p></p>
+	<button type="button" class="btn btn-primary" style="grid-column: span 2" @onclick="button1_Click">
+		Сформировать матрицу
+	</button> <p></p><p></p>
+	<button type="button" class="btn btn-primary" style="grid-column: span 2" @onclick="button2_Click">
+		Обработать матрицу
+	</button> <p></p><p></p>
+	<input id="Text3" type="text" readonly="readonly" style="grid-column: span 3" @bind-value="@cout" />
+</div>
+
+
+@code {
+	private string cin1 = "", cin2 = "", cout = "";
+	private uint rows;
+	private uint columns;
+	private int[,] mas;
+	bool show_modal1 = false;
+	bool show_modal2 = false;
+
+	private void button1_Click() // Сформировать матрицу
+	{
+		cout = "";
+		try {
+			rows = Convert.ToUInt32(cin1);
+			columns = Convert.ToUInt32(cin2);
+		}
+		catch (FormatException)
+		{
+			cout = "";
+			show_modal1 = true;
+			return;
+		}
+		catch (OverflowException)
+		{
+			cout = "";
+			show_modal2 = true;
+			return;
+		}
+
+		mas = new int[rows, columns];
+		Random rand = new Random();
+		for (int r = 0; r < rows; r++)
+		{
+			for (int c = 0; c < columns; c++)
+			{
+				mas[r, c] = rand.Next(0, 100);
+			}
+		}
+	}
+
+	private void button2_Click() // Обработать матрицу
+	{
+		int s = 0;
+		int sum = 0;
+		int col = 0;
+
+		for (int c = 0; c < columns; c++)
+		{
+			for (int r = 0; r < rows; r++)
+			{
+				s += mas[r, c];
+				if (s > sum)
+				{
+					sum = s;
+					col = c;
+				}
+			}
+			s = 0;
+		}
+
+		cout = "Столбец с наибольшей суммой элементов матрицы - " + (col + 1) + "-й";
+	}
+
+	private void cancel_submit1()
+	{
+		show_modal1 = false;
+	}
+
+	private void cancel_submit2()
+	{
+		show_modal2 = false;
+	}
+}
+
+@if (show_modal1)
+{
+		<div class="modal" tabindex="-1" role="dialog" style="display:block">
+			<div class="modal-dialog shadow-lg bg-white rounded">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Ошибка</h5>
+					</div>
+					<div class="modal-body">
+						<p>Отсутствует или введено некоректное значение строк/столбцов матрицы</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" @onclick="cancel_submit1">прекрасно</button>
+					</div>
+				</div>
+			</div>
+		</div>
+}
+
+@if (show_modal2)
+{
+		<div class="modal" tabindex="-1" role="dialog" style="display:block">
+			<div class="modal-dialog shadow-lg bg-white rounded">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Ошибка</h5>
+					</div>
+					<div class="modal-body">
+						<p>Ошибка. Недопустимое значение для строк/столбцов</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" @onclick="cancel_submit2">прекрасно</button>
+					</div>
+				</div>
+			</div>
+		</div>
+}

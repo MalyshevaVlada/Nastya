@@ -1,0 +1,130 @@
+﻿@using System.IO;
+@using System.Text.RegularExpressions;
+@inject IJSRuntime JSRuntime
+@page "/РегулярныеВыражения"
+<h3>Поиск в тексте введённого слова, написанного в нижнем регистре</h3>
+<br />
+<style>
+	.container {
+		margin: 20px;
+		width: 650px;
+	}
+
+	.grid { /* Сетка */
+		display: grid;
+		grid-template-columns: 500px 300px;
+		grid-template-rows: 30px 30px 10px 150px 10px 30px 150px;
+		gap: 10px;
+	}
+	.text-area {
+		font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+		font-size: 1.0rem;
+		position:absolute; padding: 2px; z-index: -1; color: black;
+	}
+</style>
+
+<div class="grid" style="width: 860px; background: LavenderBlush; border: 3px solid violet; padding: 20px; border-radius: 8px;text-align:left">
+ 	Слово для поиска: <input type="text" style="width:300px" @bind-value="@cin" />
+ 	<InputFile OnChange="@SingleUpload" />
+ 	<button type="button" class="btn btn-primary" style="background: violet; border: none; grid-row: span 2" @onclick="button1_Click">
+ 		Прочитать файл
+ 	</button> <br />
+ 	Текст из файла:
+ 	<textarea id="TextArea1" readonly="readonly" style="grid-column: span 2" @bind="@cout1"></textarea>
+ 	<br />
+ 	<button type="button" class="btn btn-primary" style="background: violet; border: none; grid-row: span 2" @onclick="button2_Click">
+ 		Найти совпадения
+ 	</button>
+	Результат проверки строк текста:
+	<textarea id="TextArea2" readonly="readonly" style="grid-column: span 2" @bind="@cout2"></textarea>
+</div>
+
+
+
+
+@code {
+	string cin = ""; 
+	string cout1 = "", cout2 = "";
+	bool ShowModal = false;
+	MemoryStream ms;
+
+	private async Task SingleUpload(InputFileChangeEventArgs e)
+	{
+		ms = new MemoryStream();
+		await e.File.OpenReadStream().CopyToAsync(ms);
+		await JSRuntime.InvokeAsync<object>("SelectFromTo", "TextArea2", null);
+	}
+
+	private async void button1_Click()
+	{
+		try
+		{
+			var bytes = ms.ToArray();
+			string textFromFile = System.Text.Encoding.Default.GetString(bytes);
+			cout1 = textFromFile;
+		}
+		catch (NullReferenceException)
+		{
+			ShowModal = true;
+			return;
+		}
+		await JSRuntime.InvokeAsync<object>("SelectFromTo", "TextArea2", null);
+	}
+
+	private void button2_Click()
+	{
+		string pattern = cin.ToUpper();
+		// cout2 = cout1;
+		// Regex reg = new Regex(pattern, RegexOptions.Multiline);
+		// MatchCollection match = reg.Matches(cout2);
+		// string matchText = "";
+		// foreach (Match m in match)
+		// 	  matchText += m.Value;
+		// await JSRuntime.InvokeAsync<object>("SelectFromTo", "TextArea2", matchText);
+
+		cout2 = "";
+		string[] data = cout2.Split('\n');
+		int data_number = 0;
+
+		for (int i = 0; i < data.Length; i++)
+		{
+
+			string[] values = data[i].Split(' ');
+			data_number++;
+			int value_number = 0;
+
+			for (int j = 0; j < values.Length; j++)
+			{
+				++value_number;
+				if (values[j].Equals(pattern))
+					cout2 = $"Искомое слово находится в {data_number}-й строке ({value_number} слово)";
+				else
+					cout2 = $"Искомое слово ({pattern}) не найдено!";
+			}
+		}
+	}
+	private void CancelSubmit()
+	{
+		ShowModal = false;
+	}
+}
+
+
+@if (ShowModal)
+{
+	<div class="modal" tabindex="-1" role="dialog" style="display:block">
+		<div class="modal-dialog shadow-lg bg-white rounded">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Ошибка</h5>
+				</div>
+				<div class="modal-body">
+					<p>Отсутствует открываемые файлы!!!</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" @onclick="CancelSubmit">ок</button>
+				</div>
+			</div>
+		</div>
+	</div>
+}

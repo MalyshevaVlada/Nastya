@@ -1,0 +1,230 @@
+﻿@page "/ОбработкаМассивов"
+
+<PageTitle>ОбработкаМассивов</PageTitle>
+<h3>Вывод элементов массива с номерами, кратными числу К</h3>
+<br><br>
+
+<style> .container { margin: 20px; width: 650px; }
+		.grid {
+			display: grid;
+            grid-template-columns: 130px 60px 130px 60px 130px 60px 130px 60px;
+			grid-template-rows: 60px 70px 70px 60px;
+			grid-gap: 10px;
+}
+</style>
+
+<div class="grid" style="text-align:right">
+	Размер массива:
+	<input id="Text1" type="text" @bind-value="@cin1" />
+    <button type="button" class="btn btn-primary" style="grid-column: span 2" @onclick="button1_Click">
+        Сформировать массив
+    </button>
+    Число К:
+    <input id="Text1" type="text" @bind-value="@cin2" />
+    <button type="button" class="btn btn-primary" style="grid-column: span 2" @onclick="button2_Click">
+        Сообщить число К и сформировать массив
+    </button>
+	Исходный массив:
+	<textarea id="TextArea1" readonly="readonly" style="grid-row:span 4" @bind="@cout1"></textarea>
+    Обработанный массив:
+	<textarea id="TextArea2" readonly="readonly" style="grid-row:span 4" @bind="@cout2"></textarea>
+	
+</div>
+
+@code {
+    private string cin1 = "", cin2 = "", cout1 = "", cout2 = "";
+    private uint size;
+    private uint K;
+    private int[] mas;
+    bool show_modal1 = false;
+    bool show_modal2 = false;
+    bool show_modal3 = false;
+    bool show_modal4 = false;
+    bool show_modal5 = false;
+
+
+    private void button1_Click() {
+        Random rand = new Random();
+        try
+        {
+            size = Convert.ToUInt32(cin1);
+        }
+        catch (FormatException)
+        {
+            cout1 = "";
+            cout2 = "";
+            show_modal1 = true;
+            return;
+        }
+        catch (OverflowException)
+        {
+            cout1 = "";
+            cout2 = "";
+            show_modal2 = true;
+            return;
+        }
+
+        mas = new int[size];
+        cout1 = "";
+
+        for (int i = 0; i < size; i++)
+        {
+            mas[i] = rand.Next(-10, 11);
+            cout1 += mas[i].ToString() + "\n";
+        }
+	}
+
+	private void button2_Click() {
+        try
+        {
+            K = Convert.ToUInt32(cin2);
+            if (K <= 0 || K >= size)
+            {
+                cout2 = "";
+                show_modal3 = true;
+                return;
+            }
+            else
+            {
+                cout2 = "";
+                for (uint i = 0; i < size; i += K)
+                {
+                    cout2 += mas[i].ToString() + "\n";
+                }
+            }
+        }
+        catch (FormatException)
+        {
+            cout2 = "";
+            show_modal4 = true;
+            return;
+        }
+        catch (OverflowException)
+        {
+            cout2 = "";
+            show_modal5 = true;
+            return;
+        }
+	}
+
+
+    private void cancel_submit1()
+    {
+        show_modal1 = false;
+    }
+
+    private void cancel_submit2()
+    {
+        show_modal2 = false;
+    }
+
+    private void cancel_submit3()
+    {
+        show_modal3 = false;
+    }
+
+    private void cancel_submit4()
+    {
+        show_modal4 = false;
+    }
+
+    private void cancel_submit5()
+    {
+        show_modal5 = false;
+    }
+}
+
+@if (show_modal1)
+{
+    <div class="modal" tabindex="-1" role="dialog" style="display:block">
+        <div class="modal-dialog shadow-lg bg-white rounded">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Ошибка</h5>
+                </div>
+                <div class="modal-body">
+                    <p>Отсутствует размер массива, либо введено некоректное значение</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="cancel_submit1">прекрасно</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (show_modal2)
+{
+    <div class="modal" tabindex="-1" role="dialog" style="display:block">
+        <div class="modal-dialog shadow-lg bg-white rounded">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Ошибка</h5>
+                </div>
+                <div class="modal-body">
+                    <p>Недопустимое значение размера массива</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="cancel_submit2">прекрасно</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (show_modal3)
+{
+    <div class="modal" tabindex="-1" role="dialog" style="display:block">
+        <div class="modal-dialog shadow-lg bg-white rounded">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Ошибка</h5>
+                </div>
+                <div class="modal-body">
+                    <p>Число должно быть в диапазоне от 1 до N</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="cancel_submit3">прекрасно</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (show_modal4)
+{
+    <div class="modal" tabindex="-1" role="dialog" style="display:block">
+        <div class="modal-dialog shadow-lg bg-white rounded">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Ошибка</h5>
+                </div>
+                <div class="modal-body">
+                    <p>Отсутствует число K, либо введено некоректное значение</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="cancel_submit4">прекрасно</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (show_modal5)
+{
+    <div class="modal" tabindex="-1" role="dialog" style="display:block">
+        <div class="modal-dialog shadow-lg bg-white rounded">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Ошибка</h5>
+                </div>
+                <div class="modal-body">
+                        <p>Недопустимое значение для числа K</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="cancel_submit5">прекрасно</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,89 @@
+﻿@page "/ОбработкаСимволов"
+
+
+<PageTitle>ОбработкаСимволов</PageTitle>
+
+<h3>Вычисление значения арифметического выражения</h3>
+
+<style>
+	.container { margin: 20px; width: 750px; }
+</style>
+
+<div class="container text-left">
+	Исходная строка:
+	<input id="Text1" type="text" style="width:750px" @bind-value="@cin" />
+</div>
+<div class="container text-left">
+	<button type="button" class="btn btn-primary" style="width:750px" @onclick="button_click">
+	Обработать строку</button>
+</div>
+<div class="container text-left">
+	Обработанная строка:
+	<input id="Text2" type="text" style="width:750px" readonly="readonly" @bind-value="@cout" />
+</div>
+
+
+@code {
+	private string cin = "", cout = "";
+	bool show_modal = false;
+
+	private int eval(string str)
+	{
+		string[] numbers = str.Split(new char[] { '+', '-' }, StringSplitOptions.RemoveEmptyEntries);
+		int result = int.Parse(numbers[0]);
+		for (int i = 1, j = 1; i < numbers.Length; i++, j += 2)
+		{
+			char operation = str[j];
+			int operand = int.Parse(numbers[i]);
+			if (operation == '+')
+			{
+				result += operand;
+			}
+			else if (operation == '-')
+			{
+				result -= operand;
+			}
+		}
+
+		return result;
+	}
+
+	private void button_click()
+	{
+		try
+		{
+			String str = cin;
+			int result = eval(str);
+			cout = result.ToString();
+		}
+		catch (FormatException)
+		{
+			show_modal = true;
+			return;
+		}
+	}
+
+	private void cancel_submit()
+	{
+		show_modal = false;
+	}
+}
+
+@if (show_modal)
+{
+	<div class="modal" tabindex="-1" role="dialog" style="display:block">
+		<div class="modal-dialog shadow-lg bg-white rounded">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Ошибка</h5>
+				</div>
+				<div class="modal-body">
+					<p>Введено некорректное значение</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" @onclick="cancel_submit">прекрасно</button>
+				</div>
+			</div>
+		</div>
+	</div>
+}

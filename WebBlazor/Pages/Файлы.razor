@@ -1,0 +1,176 @@
+﻿@using System.IO;
+@inject IJSRuntime JSRuntime
+@page "/Файлы"
+<h3>Поиск в файлах первого несоответстивя числа (строки и позиции)</h3>
+<br />
+<style>
+	.container {
+		margin: 20px;
+		width: 650px;
+	}
+
+	.grid { /* Сетка */
+		display: grid;
+		grid-template-columns: 400px 250px;
+		grid-template-rows: 30px 10px 130px 30px 10px 130px 30px 10px 130px 50px;
+		gap: 10px;
+	}
+</style>
+ 
+<div class="grid" style="width: 700px; text-align:left; background: LavenderBlush; border: 3px solid violet; padding: 20px; border-radius: 8px;">
+ 	<InputFile OnChange="@SingleUpload" />
+	<button type="button" class="btn btn-primary" style="background: violet; border: none; grid-row: span 2" @onclick="button1_Click">
+ 		Прочитать файл
+ 	</button>
+ 	Информация из файла:
+	<textarea id="TextArea1" readonly="readonly" style="grid-column: span 2" @bind="@cout1"></textarea>
+	<InputFile OnChange="@SingleUpload" />
+	<button type="button" class="btn btn-primary" style="background: violet; border: none; grid-row: span 2" @onclick="button2_Click">
+		Прочитать файл
+	</button>
+	Информация из файла:
+	<textarea id="TextArea2" readonly="readonly" style="grid-column: span 2" @bind="@cout2"></textarea>
+	<p></p>
+	<button type="button" class="btn btn-primary" style="grid-row: span 2; background: violet; border: none;" @onclick="button3_Click">
+		Обработать информацию
+	</button>
+	Результат обработки информации:
+	<textarea id="TextArea3" readonly="readonly" style="grid-column: span 2" @bind="@cout3"></textarea>
+	<p></p>
+	<button type="button" class="btn btn-primary" style="background: violet; border: none;" @onclick="button3_Click">Сохранить в файл</button>
+</div>
+
+
+
+
+@code {
+	string cout1 = "", cout2 = "", cout3 = "";
+	bool ShowModal1 = false;
+	bool ShowModal2 = false;
+ 	MemoryStream ms;
+ 
+ 	private async Task SingleUpload(InputFileChangeEventArgs e)
+ 	{
+ 		ms = new MemoryStream();
+ 		await e.File.OpenReadStream().CopyToAsync(ms);
+ 	}
+ 
+ 	private void button1_Click()
+ 	{
+ 		try
+ 		{
+ 			var bytes = ms.ToArray();
+ 			string textFromFile = System.Text.Encoding.Default.GetString(bytes);
+ 			cout1 = textFromFile;
+ 		}
+ 		catch (NullReferenceException)
+ 		{
+ 			ShowModal1 = true;
+ 			return;
+ 		}
+ 	}
+ 
+ 	private void button2_Click()
+ 	{
+ 		try
+ 		{
+ 			var bytes = ms.ToArray();
+ 			string textFromFile = System.Text.Encoding.Default.GetString(bytes);
+ 			cout2 = textFromFile;
+ 		}
+ 		catch (NullReferenceException)
+ 		{
+ 			ShowModal1 = true;
+ 			return;
+ 		}
+ 	}
+ 
+ 	private void button3_Click()
+ 	{
+		cout3 = "";
+		string[] data_one = cout1.Split('\n');
+		string[] data_two  = cout2.Split('\n');
+		int data_number = 0;
+
+		for (int i = 0; i < Math.Min(data_one.Length, data_two.Length); i++)
+		{
+
+			string[] values_one = data_one[i].Split(' ');
+			string[] values_two = data_two[i].Split(' ');
+			data_number++;
+			int value_number = 0;
+
+			for (int j = 0; j < Math.Min(values_one.Length, values_two.Length); j++)
+			{
+				int value_one;
+				int value_two;
+				value_number++;
+				if (int.TryParse(values_one[j], out value_one) && int.TryParse(values_two[j], out value_two))
+				{
+					if (value_one != value_two)
+						cout3 = $"Первое несовпадение в файлах происходит в {data_number}-й строке в {value_number}-м числе";
+				}
+				else
+				{
+					ShowModal2 = true;
+					return;
+				}
+			}
+		}
+	}
+
+	private async void button4_Click()
+	{
+			await JSRuntime.InvokeAsync<object>("FileSaveAs", "save.txt", cout3);
+	}
+
+
+	private void CancelSubmit1()
+	{
+		ShowModal1 = false;
+	}
+
+	private void CancelSubmit2()
+	{
+		ShowModal2 = false;
+	}
+}
+
+
+@if (ShowModal1)
+{
+	<div class="modal" tabindex="-1" role="dialog" style="display:block">
+		<div class="modal-dialog shadow-lg bg-white rounded">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Ошибка</h5>
+				</div>
+				<div class="modal-body">
+					<p>Отсутствует открываемые файлы!!!</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" @onclick="CancelSubmit1">ок</button>
+				</div>
+			</div>
+		</div>
+	</div>
+}
+
+@if (ShowModal2)
+{
+	<div class="modal" tabindex="-1" role="dialog" style="display:block">
+		<div class="modal-dialog shadow-lg bg-white rounded">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Ошибка</h5>
+				</div>
+				<div class="modal-body">
+					<p>Недопустимая информация в строке файла!!!</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" @onclick="CancelSubmit2">ок</button>
+				</div>
+			</div>
+		</div>
+	</div>
+}

@@ -1,0 +1,95 @@
+﻿<div class="top-row pl-4 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">Web-приложения</a>
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+    <nav class="nav flex-column">
+       @*  <div class="nav-item px-3">
+            <NavLink class="nav-link" href="ЛинейныйАлгоритм" Match="NavLinkMatch.All">
+                Линейный алгоритм
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="УсловныйОператор">
+                Условный оператор
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="ОператорВарианта">
+                Оператор варианта
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="ЦиклическиеОператоры">
+                Циклические операторы
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="ИнициализацияМассивов">
+                Инициализация массивов
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="ДвумерныеМассивы">
+                Двумерные массивы
+            </NavLink>
+        </div> *@
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="ОбработкаМассивов">
+                Обработка массивов
+            </NavLink>
+        </div>
+        @* <div class="nav-item px-3">
+            <NavLink class="nav-link" href="ОбработкаСимволов">
+                Обработка символов
+            </NavLink>
+        </div> *@
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="Методы">
+               Объявление методов
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="МетодыСтрок">
+               Строковые методы
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="ПерегрузкаМетодов">
+                Перегрузка методов
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="Делегаты">
+                Делегаты
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="Файлы">
+                Работа с файлами
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="РегулярныеВыражения">
+                Регулярные Выражения
+            </NavLink>
+        </div>
+    </nav>
+</div>
+
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

@@ -1,0 +1,88 @@
+﻿@page "/Методы"
+
+<PageTitle>Методы</PageTitle>
+
+<h3>Последовательный обмен содержимым в парах переменных А и В, С и D, В и С</h3>
+
+<style> .container { margin: 20px; width: 650px; } </style>
+
+<div class="container text-right">
+	A: <input type="text" style="width:250px" @bind-value="@cin1" />
+	B: <input type="text" style="width:250px" @bind-value="@cin2" />
+</div>
+<div class="container text-right">
+	C: <input type="text" style="width:250px" @bind-value="@cin3" />
+	D: <input type="text" style="width:250px" @bind-value="@cin4" />
+</div>
+<div class="container text-right">
+	<button type="button" class="btn btn-primary" style="width:550px" @onclick="button_click">	
+	Вычислить</button>
+</div>
+<div class="container text-right">
+	<input type="text" multiple style="width:550px" readonly="readonly" @bind-value="@cout"/>
+</div>
+
+
+@code {
+	private string cin1 = "", cin2 = "", cin3 = "", cin4 = "";
+	private string cout = "";
+	bool show_modal = false;
+
+	private void Swap(ref double x, ref double y)
+	{
+		double temp = x;
+		x = y;
+		y = temp;
+	}
+
+	private void button_click()
+	{
+		try
+		{
+			double A = Convert.ToDouble(cin1);
+			double B = Convert.ToDouble(cin2);
+			double C = Convert.ToDouble(cin3);
+			double D = Convert.ToDouble(cin4);
+
+			Swap(ref A, ref B);
+			Swap(ref C, ref D);
+			Swap(ref B, ref C);
+
+			cout = "Новое содержимое переменных:"
+				+ "А = " + A.ToString()
+				+ ", B = " + B.ToString()
+				+ ", C = " + C.ToString()
+				+ ", D = " + D.ToString();
+		}
+		catch (FormatException)
+		{
+			cout = "";
+			show_modal = true;
+			return;
+		}
+	}
+
+	private void cancel_submit()
+	{
+		show_modal = false;
+	}
+}
+
+@if (show_modal)
+{
+	<div class="modal" tabindex="-1" role="dialog" style="display:block">
+		<div class="modal-dialog shadow-lg bg-white rounded">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Ошибка</h5>
+				</div>
+				<div class="modal-body">
+					<p>Введено некорректное значение</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" @onclick="cancel_submit">прекрасно</button>
+				</div>
+			</div>
+		</div>
+	</div>
+}

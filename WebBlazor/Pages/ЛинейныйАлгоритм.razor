@@ -1,0 +1,104 @@
+﻿@page "/ЛинейныйАлгоритм"
+
+<PageTitle>Линейный алгоритм</PageTitle>
+
+<h4>Значение в градусах угла, заданного в радианах</h4>
+
+<div class="container">
+	<div class="calculate text-right">
+		<label for="radians">Радианы = </label>
+		<input id="radians" name="radians" type="text" @bind-value="@cin"/>
+	</div>
+
+	<div class="calculate text-right">
+		<label for="degrees">Градусы = </label>
+		<input id="degrees" name="degrees" type="text" @bind-value="@cout" readonly="readonly"/>
+	</div>
+	<br/>
+	<button class="my_button" @onclick="button_click">Вычислить</button>
+</div>
+
+@code {
+	private string cin = "";
+	private string cout = "";
+	bool show_modal1, show_modal2;
+
+	private void button_click()
+	{
+		const double PI = 3.14159265359;
+		double radians;
+		double degrees;
+
+		try
+		{
+			radians = Convert.ToDouble(cin);
+			if (0 <= radians && radians < 360)
+			{
+				degrees = radians * 180 / PI;
+				cout = Math.Round(degrees, 2).ToString();
+			}
+			else
+			{
+				cout = "";
+				show_modal1 = true;
+				return;
+			}
+		}
+		catch (FormatException)
+		{
+			cout = "";
+			show_modal2 = true;
+			return;
+		}
+	}
+
+	private void cancel_submit1()
+	{
+		show_modal1 = false;
+	}
+
+	private void cancel_submit2()
+	{
+		show_modal2 = false;
+	}
+}
+
+
+@if (show_modal1)
+{
+	<div class="modal" tabindex="-1" role="dialog" style="display:block">
+		<div class="modal-dialog shadow-lg bg-white rounded">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Ошибка</h5>
+				</div>
+				<div class="modal-body">
+					<p>Радианы должны находится в диапазоне от 0 до 2*PI</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" @onclick="cancel_submit1">прекрасно</button>
+				</div>
+			</div>
+		</div>
+	</div>
+}
+
+
+@if (show_modal2)
+{
+		<div class="modal" tabindex="-1" role="dialog" style="display:block">
+			<div class="modal-dialog shadow-lg bg-white rounded">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Ошибка</h5>
+					</div>
+					<div class="modal-body">
+						<p>Введено некорректное значение</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" @onclick="cancel_submit2">прекрасно</button>
+					</div>
+				</div>
+			</div>
+		</div>
+}

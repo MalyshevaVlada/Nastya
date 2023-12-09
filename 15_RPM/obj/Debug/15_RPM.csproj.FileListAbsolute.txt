@@ -1,0 +1,10 @@
+D:\CODE\acode_rksi\petrova\15_RPM\bin\Debug\15_RPM.exe.config
+D:\CODE\acode_rksi\petrova\15_RPM\bin\Debug\15_RPM.exe
+D:\CODE\acode_rksi\petrova\15_RPM\bin\Debug\15_RPM.pdb
+D:\CODE\acode_rksi\petrova\15_RPM\obj\Debug\15_RPM.csproj.AssemblyReference.cache
+D:\CODE\acode_rksi\petrova\15_RPM\obj\Debug\_15_RPM.Form1.resources
+D:\CODE\acode_rksi\petrova\15_RPM\obj\Debug\_15_RPM.Properties.Resources.resources
+D:\CODE\acode_rksi\petrova\15_RPM\obj\Debug\15_RPM.csproj.GenerateResource.cache
+D:\CODE\acode_rksi\petrova\15_RPM\obj\Debug\15_RPM.csproj.CoreCompileInputs.cache
+D:\CODE\acode_rksi\petrova\15_RPM\obj\Debug\15_RPM.exe
+D:\CODE\acode_rksi\petrova\15_RPM\obj\Debug\15_RPM.pdb
